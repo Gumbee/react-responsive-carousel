@@ -586,24 +586,7 @@ export default class Carousel extends React.Component<CarouselProps, CarouselSta
         const item = this.itemsRef && this.itemsRef[position];
 
         if (this.state.hasMount && item && item.children.length) {
-            const slideImages = item.children[0].getElementsByTagName('img') || [];
-
-            if (slideImages.length > 0) {
-                const image = slideImages[0];
-
-                if (!image.complete) {
-                    // if the image is still loading, the size won't be available so we trigger a new render after it's done
-                    const onImageLoad = () => {
-                        this.forceUpdate();
-                        image.removeEventListener('load', onImageLoad);
-                    };
-
-                    image.addEventListener('load', onImageLoad);
-                }
-            }
-
-            // try to get img first, if img not there find first display tag
-            const displayItem = slideImages[0] || item.children[0];
+            const displayItem = item.children[0];
             const height = displayItem.clientHeight;
             return height > 0 ? height : null;
         }
